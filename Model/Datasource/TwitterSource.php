@@ -560,52 +560,7 @@ class TwitterSource extends DataSource {
     // ====================================================
 
     /**
-     * GET statuses/public_timeline
-     *
-     * @param array  $params
-     *  *Optional*
-     *      skip_user:
-     *      include_rts:
-     *      include_entities:
-     *
-     * @return array|false
-     * @see http://dev.twitter.com/doc/get/statuses/public_timeline
-     */
-    public function statuses_public_timeline($params = array()) {
-
-        $url    = 'http://api.twitter.com/1/statuses/public_timeline.json';
-        $method = 'GET';
-
-        // request
-        return $this->_request($this->_buildRequest($url, $method, $params));
-    }
-
-    /**
-     * GET statuses/home_timeline
-     *
-     * @param array  $params
-     *  *Optional*
-     *     since_id: Returns only statuses with an ID greater than (that is, more recent than) the specified ID.
-     *     max_id:   Returns only statuses with an ID less than (that is, older than) or equal to the specified ID.
-     *     count:    Specifies the number of statuses to retrieve. May not be greater than 200.
-     *     page:     Specifies the page of results to retrieve. Note: there are pagination limits.
-     *     skip_user:
-     *     include_entities:
-     *
-     * @return array|false
-     * @see http://dev.twitter.com/doc/get/statuses/home_timeline
-     */
-    public function statuses_home_timeline($params = array()) {
-
-        $url    = 'http://api.twitter.com/1/statuses/home_timeline.json';
-        $method = 'GET';
-
-        // request
-        return $this->_request($this->_buildRequest($url, $method, $params));
-    }
-
-    /**
-     * GET statuses/friends_timeline
+     * GET statuses/mentions_timeline
      *
      * @param array  $params
      *  *Optional*
@@ -613,16 +568,15 @@ class TwitterSource extends DataSource {
      *     max_id:    Returns only statuses with an ID less than (that is, older than) or equal to the specified ID.
      *     count:     Specifies the number of statuses to retrieve. May not be greater than 200.
      *     page:      Specifies the page of results to retrieve. Note: there are pagination limits.
-     *     skip_user:
      *     include_rts:
      *     include_entities:
      *
      * @return array|false
-     * @see http://dev.twitter.com/doc/get/statuses/friends_timeline
+     * @see https://dev.twitter.com/docs/api/1.1/get/statuses/mentions_timeline
      */
-    public function statuses_friends_timeline($params = array()) {
+    public function statuses_mentions_timeline($params = array()) {
 
-        $url    = 'http://api.twitter.com/1/statuses/friends_timeline.json';
+        $url    = 'http://api.twitter.com/1.1/statuses/mentions_timeline.json';
         $method = 'GET';
 
         // request
@@ -646,11 +600,11 @@ class TwitterSource extends DataSource {
      *     include_entities:
      *
      * @return array|false
-     * @see http://dev.twitter.com/doc/get/statuses/user_timeline
+     * @see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
      */
     public function statuses_user_timeline($params = array()) {
 
-        $url    = 'http://api.twitter.com/1/statuses/user_timeline.json';
+        $url    = 'http://api.twitter.com/1.1/statuses/user_timeline.json';
         $method = 'GET';
 
         if (is_scalar($params)) {
@@ -662,23 +616,23 @@ class TwitterSource extends DataSource {
     }
 
     /**
-     * GET statuses/mentions
+     * GET statuses/home_timeline
      *
      * @param array  $params
      *  *Optional*
-     *     since_id:  Returns only statuses with an ID greater than (that is, more recent than) the specified ID.
-     *     max_id:    Returns only statuses with an ID less than (that is, older than) or equal to the specified ID.
-     *     count:     Specifies the number of statuses to retrieve. May not be greater than 200.
-     *     page:      Specifies the page of results to retrieve. Note: there are pagination limits.
-     *     include_rts:
+     *     since_id: Returns only statuses with an ID greater than (that is, more recent than) the specified ID.
+     *     max_id:   Returns only statuses with an ID less than (that is, older than) or equal to the specified ID.
+     *     count:    Specifies the number of statuses to retrieve. May not be greater than 200.
+     *     page:     Specifies the page of results to retrieve. Note: there are pagination limits.
+     *     skip_user:
      *     include_entities:
      *
      * @return array|false
-     * @see http://dev.twitter.com/doc/get/statuses/mentions
+     * @see https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
      */
-    public function statuses_mentions($params = array()) {
+    public function statuses_home_timeline($params = array()) {
 
-        $url    = 'http://api.twitter.com/1/statuses/mentions.json';
+        $url    = 'http://api.twitter.com/1.1/statuses/home_timeline.json';
         $method = 'GET';
 
         // request
@@ -686,7 +640,7 @@ class TwitterSource extends DataSource {
     }
 
     /**
-     * GET statuses/retweeted_by_me
+     * GET statuses/statuses_retweets_of_me
      *
      * @param array  $params
      *  *Optional*
@@ -696,55 +650,46 @@ class TwitterSource extends DataSource {
      *     page:      Specifies the page of results to retrieve. Note: there are pagination limits.
      *
      * @return array|false
-     * @see http://dev.twitter.com/doc/get/statuses/retweeted_by_me
-     */
-    public function statuses_retweeted_by_me($params = array()) {
-
-        $url    = 'http://api.twitter.com/1/statuses/retweeted_by_me.json';
-        $method = 'GET';
-
-        // request
-        return $this->_request($this->_buildRequest($url, $method, $params));
-    }
-
-    /**
-     * GET statuses/retweeted_to_me
-     *
-     * @param array  $params
-     *  *Optional*
-     *     since_id:  Returns only statuses with an ID greater than (that is, more recent than) the specified ID.
-     *     max_id:    Returns only statuses with an ID less than (that is, older than) or equal to the specified ID.
-     *     count:     Specifies the number of statuses to retrieve. May not be greater than 200.
-     *     page:      Specifies the page of results to retrieve. Note: there are pagination limits.
-     *
-     * @return array|false
-     * @see http://dev.twitter.com/doc/get/statuses/retweeted_to_me
-     */
-    public function statuses_retweeted_to_me($params = array()) {
-
-        $url    = 'http://api.twitter.com/1/statuses/retweeted_to_me.json';
-        $method = 'GET';
-
-        // request
-        return $this->_request($this->_buildRequest($url, $method, $params));
-    }
-
-    /**
-     * GET statuses/retweets_of_me
-     *
-     * @param array  $params
-     *  *Optional*
-     *     since_id:  Returns only statuses with an ID greater than (that is, more recent than) the specified ID.
-     *     max_id:    Returns only statuses with an ID less than (that is, older than) or equal to the specified ID.
-     *     count:     Specifies the number of statuses to retrieve. May not be greater than 200.
-     *     page:      Specifies the page of results to retrieve. Note: there are pagination limits.
-     *
-     * @return array|false
-     * @see http://dev.twitter.com/doc/get/statuses/retweets_of_me
+     * @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweets_of_me
      */
     public function statuses_retweets_of_me($params = array()) {
 
-        $url    = 'http://api.twitter.com/1/statuses/retweets_of_me.json';
+        $url    = 'http://api.twitter.com/1.1/statuses/statuses_retweets_of_me.json';
+        $method = 'GET';
+
+        // request
+        return $this->_request($this->_buildRequest($url, $method, $params));
+    }
+
+    /**
+     * GET statuses/retweets
+     *
+     * @param array  $params
+     *  *Required*
+     *      id: The numerical ID of the tweet you want the retweets of.
+     *  *Optional*
+     *      count: Specifies the number of retweets to retrieve. May not be greater than 100.
+     *
+     * @return array|false
+     * @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweets/%3Aid
+     */
+    public function statuses_retweets($params = array()) {
+
+        if (empty($params)) {
+            return false;
+        }
+
+        if (is_array($params)) {
+            if (!isset($params['id'])) {
+                return false;
+            }
+            $id = $params['id'];
+            unset($params['id']);
+        } else {
+            $id = $params;
+        }
+
+        $url    = "http://api.twitter.com/1.1/statuses/retweets/$id.json";
         $method = 'GET';
 
         // request
@@ -764,7 +709,7 @@ class TwitterSource extends DataSource {
      *      id: The numerical ID of the desired status.
      *
      * @return array|false
-     * @see http://dev.twitter.com/doc/get/statuses/show
+     * @see https://dev.twitter.com/docs/api/1.1/get/statuses/show/%3Aid
      */
     public function statuses_show($params = array()) {
 
@@ -772,12 +717,42 @@ class TwitterSource extends DataSource {
             return false;
         }
 
-        if (is_scalar($params)) {
-            $params = array('id' => $params);
+        if (is_array($params)) {
+            if (!isset($params['id'])) {
+                return false;
+            }
+            $id = $params['id'];
+            unset($params['id']);
+        } else {
+            $id = $params;
         }
 
-        $url    = 'http://api.twitter.com/1/statuses/show.json';
+        $url    = "http://api.twitter.com/1.1/statuses/show/$id.json";
         $method = 'GET';
+
+        // request
+        return $this->_request($this->_buildRequest($url, $method, $params));
+    }
+
+    /**
+     * POST statuses/destroy
+     *
+     * @param string $id
+     * @param array  $params
+     *  *Required*
+     *      id: The numerical ID of the desired status.
+     *
+     * @return array|false
+     * @see https://dev.twitter.com/docs/api/1.1/post/statuses/destroy/%3Aid
+     */
+    public function statuses_destroy($id, $params = array()) {
+
+        if (empty($id)) {
+            return false;
+        }
+
+        $url    = sprintf('http://api.twitter.com/1.1/statuses/destroy/%s.json', $id);
+        $method = 'POST';
 
         // request
         return $this->_request($this->_buildRequest($url, $method, $params));
@@ -797,7 +772,7 @@ class TwitterSource extends DataSource {
      *      display_coordinates: Whether or not to put a pin on the exact coordinates a tweet has been sent from.
      *
      * @return array|false
-     * @see http://dev.twitter.com/doc/post/statuses/update
+     * @see https://dev.twitter.com/docs/api/1.1/post/statuses/update
      */
     public function statuses_update($params = array()) {
 
@@ -805,7 +780,7 @@ class TwitterSource extends DataSource {
             return false;
         }
 
-        $url    = 'http://api.twitter.com/1/statuses/update.json';
+        $url    = 'http://api.twitter.com/1.1/statuses/update.json';
         $method = 'POST';
 
         if (is_scalar($params)) {
@@ -819,36 +794,12 @@ class TwitterSource extends DataSource {
     }
 
     /**
-     * POST statuses/destroy
-     *
-     * @param string $id
-     * @param array  $params
-     *  *Required*
-     *      id: The numerical ID of the desired status.
-     *
-     * @return array|false
-     * @see http://dev.twitter.com/doc/post/statuses/destroy
-     */
-    public function statuses_destroy($id, $params = array()) {
-
-        if (empty($id)) {
-            return false;
-        }
-
-        $url    = sprintf('http://api.twitter.com/1/statuses/destroy/%s.json', $id);
-        $method = 'POST';
-
-        // request
-        return $this->_request($this->_buildRequest($url, $method, $params));
-    }
-
-    /**
      * POST statuses/retweet/:id
      *
      * @param string $id *Required* The numerical ID of the tweet you are retweeting.
      * @param array  $params
      * @return array|false
-     * @see http://dev.twitter.com/doc/post/statuses/retweet/:id
+     * @see https://dev.twitter.com/docs/api/1.1/post/statuses/retweet/%3Aid
      */
     public function statuses_retweet($id, $params = array()) {
 
@@ -856,7 +807,7 @@ class TwitterSource extends DataSource {
             return false;
         }
 
-        $url    = sprintf('http://api.twitter.com/1/statuses/retweet/%s.json', $id);
+        $url    = sprintf('http://api.twitter.com/1.1/statuses/retweet/%s.json', $id);
         $method = 'POST';
 
         // request
@@ -864,78 +815,25 @@ class TwitterSource extends DataSource {
     }
 
     /**
-     * GET statuses/retweets
-     *
-     * @param array  $params
-     *  *Required*
-     *      id: The numerical ID of the tweet you want the retweets of.
-     *  *Optional*
-     *      count: Specifies the number of retweets to retrieve. May not be greater than 100.
-     *
-     * @return array|false
-     * @see http://dev.twitter.com/doc/get/statuses/retweets
-     */
-    public function statuses_retweets($params = array()) {
-
-        if (empty($params)) {
-            return false;
-        }
-
-        if (is_scalar($params)) {
-            $params = array('id' => $params);
-        }
-
-        $url    = 'http://api.twitter.com/1/statuses/retweets.json';
-        $method = 'GET';
-
-        // request
-        return $this->_request($this->_buildRequest($url, $method, $params));
-    }
-
-    /**
-     * GET statuses/:id/retweeted_by
+     * GET statuses/retweeters/ids
      *
      * @param string $id *Required* The id of the status
      * @param array  $params
      *  *Optional*
-     *      count:  Indicates number of retweeters to return per page, with a maximum 100 possible results.
-     *      page:   Specifies the page of results to retrieve. Note: there are pagination limits.
+     *      cursor: Like page. For more detail, see manual.
+     *      stringify_ids: Specifies the page of results to retrieve. Note: there are pagination limits.
      *
      * @return array|false
-     * @see http://dev.twitter.com/doc/get/statuses/:id/retweeted_by
+     * @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweeters/ids
      */
-    public function get_statuses_id_retweet_by($id, $params = array()) {
+    public function statuses_retweeters_ids($id, $params = array()) {
 
         if (empty($id)) {
             return false;
         }
+        $params = array_merge($params, compact('id'));
 
-        $url    = sprintf('http://api.twitter.com/1/statuses/%s/retweeted_by.json', $id);
-        $method = 'GET';
-
-        // request
-        return $this->_request($this->_buildRequest($url, $method, $params));
-    }
-
-    /**
-     * GET statuses/:id/retweeted_by/ids
-     *
-     * @param string $id *Required* The id of the status
-     * @param array  $params
-     *  *Optional*
-     *      count:  Indicates number of retweeters to return per page, with a maximum 100 possible results.
-     *      page:   Specifies the page of results to retrieve. Note: there are pagination limits.
-     *
-     * @return array|false
-     * @see http://dev.twitter.com/doc/get/statuses/:id/retweeted_by/ids
-     */
-    public function get_statuses_id_retweeted_by_ids($id, $params = array()) {
-
-        if (empty($id)) {
-            return false;
-        }
-
-        $url    = sprintf('http://api.twitter.com/1/statuses/%s/retweeted_by/ids.josn', $id);
+        $url    = 'https://api.twitter.com/1.1/statuses/retweeters/ids.json';
         $method = 'GET';
 
         // request
@@ -1967,7 +1865,7 @@ class TwitterSource extends DataSource {
      */
     public function account_verify_credentials($params = array()) {
 
-        $url    = 'http://api.twitter.com/1/account/verify_credentials.json';
+        $url    = 'http://api.twitter.com/1.1/account/verify_credentials.json';
         $method = 'GET';
 
         // request
